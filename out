@@ -4,7 +4,7 @@ set -euo pipefail
 
 exec 3>&1
 exec 1>&2
-jq -M -S . < /dev/stdin > /tmp/input.json
+jq -M -S . > /tmp/input.json <&0
 
 if [ "$(jq -r '.source | has("webhook")' < /tmp/input.json)" = 'true' ]; then
     webhook="$(jq -r .source.webhook < /tmp/input.json)"
